@@ -275,6 +275,18 @@ function My-RemoveThemeCompatible {
 	}
 }
 
+#remove language="javascript"
+function My-RemoveLanguageJavascript {
+	[CmdletBinding()]
+	Param([array]$fileContent)
+
+	Process {
+		Write-Verbose "remove language=javascript from script reference"
+		#$fileName
+		return My-ReplaceText -fileContent $fileContent -oldString " language=""javascript""" -newString ""
+	}
+}
+
 #program "main" function
 "welcome to the wonderful world of automated .aspx files fixing. sit back, get a coffee or even better, run this during the night, it takes some time (lots of regexing on single core). friendly reminder - check all changes I made to the files, mostly I mess up JS code, sry guys, I did what I could. enjoy.`nPS> say good bye to one of your cores`n`n"
 
@@ -311,13 +323,14 @@ $whatToProcess | % {
 			("currently messing up : " + $_.FullName + "`n")
 
 			#load content
-			$fileContent = (get-content $_.FullName -Encoding utf8)
+			$fileContent = (get-content $_.FullName)
 
 			#zero length check
 			if ($fileContent) {
 				#process
 				$fileContent = (My-FixHead -fileContent $fileContent)
 				$fileContent = (My-RemoveThemeCompatible -fileContent $fileContent)
+				$fileContent = (My-RemoveLanguageJavascript -fileContent $fileContent)
 				$fileContent = (My-FixHTMLNamespace -fileContent $fileContent)
 				$fileContent = (My-ReplaceBodyStartTag -fileContent $fileContent)
 				$fileContent = (My-ReplaceHeadMetaTag -fileContent $fileContent)
