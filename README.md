@@ -15,7 +15,11 @@ Currently these things :
 - Dropping properties from body start tag,
 - Removing head tag with vs_targetSchema from older VS,
 - Moving script references to the bottom of a file (before end of body tag),
-- Scanning inline JavaScript (should be removed to separate .js file, I know) and fixing calling IDs without document.getElementById - older IE behavior
+- Scanning inline JavaScript (should be removed to separate .js file, I know) and fixing calling IDs without document.getElementById - older IE behavior,
+- deleting row with old http-equiv=MSThemeCompatible,
+- remove language="javascript" from script tag
+
+
 
 What you need to make it run
 -
